@@ -1,0 +1,8 @@
+name: SSH to GitHub Actions
+on: push
+jobs:
+  Ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+    - name: SSH connection to Actions
+      uses: p3terx/debugger-action@main
