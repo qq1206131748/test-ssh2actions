@@ -1,22 +1,28 @@
+#防止自动关闭
+touch /tmp/keepalive
 #安装必要的软件包
 sudo apt update && sudo apt -y dist-upgrade
+
 sudo apt-get install -y bc bison build-essential ccache curl flex g++-multilib gcc-multilib git gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev libssl-dev libwxgtk3.0-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev unzip openjdk-8-jdk language-pack-zh-hans python
+
 #下载源码
-git clone --depth=1 https://github.com/yi985432/kernel_olive_lolz -b V11
+git clone --depth=1 https://github.com/yi985432/kernel_olive_lolz -b V10
 #下载编译器
 git clone --depth=1 https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9 -b android-10.0.0_r32 
+
 git clone --depth=1 https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 -b ndk-release-r21
-
-
-
 #进入源码目录
 cd kernel_olive_lolz
 #配置编译器
 export ARCH=arm64
 export SUBARCH=arm64
-export CROSS_COMPILE=（64位编译器所在路径，如：~/work/test-ssh2actions/test-ssh2actions/aarch64-linux-android-4.9/bin/aarch64-linux-android-）
-export CROSS_COMPILE_ARM32=（32位编译器所在路径，如：~/work/test-ssh2actions/test-ssh2actions/arm-linux-androideabi-4.9/bin/arm-linux-androideabi-）
+export CROSS_COMPILE=~/work/test-ssh2actions/test-ssh2actions/aarch64-linux-android-4.9/bin/aarch64-linux-android-
+export CROSS_COMPILE_ARM32=~/work/test-ssh2actions/test-ssh2actions/arm-linux-androideabi-4.9/bin/arm-linux-androideabi-
 #编译
-make O=out （配置文件，如： lolz_olive_defconfig）
-make O=out -j8   
-        
+make O=out  lolz_olive_defconfig
+make O=out -j8 
+#上传编译后的文件  
+curl -sL https://git.io/file-transfer | sh
+
+./transfer wet out/arch/arm64/boot/Image.gz-dtb
+      
