@@ -1,5 +1,4 @@
   os=$(uname -o)
-  linux=GNU/Linux
   af=$(pwd)
   bf=$(dirname $0)
   if ( echo ${bf} |grep -q / );then
@@ -22,14 +21,14 @@
    sh $0   
    exit
    fi
-   if [ $os != '$linux' ];then
+   if [ $os != 'GNU/Linux' ];then
    su -c mount -o remount -rw /
    su -c mkdir /工作目录 /工作目录/vendor
    else
   sudo mount -o remount -rw /
   sudo mkdir /工作目录 /工作目录/vendor
    fi   
-   if [ $os != '$linux' ];then 
+   if [ $os != 'GNU/Linux' ];then 
    su -c losetup /dev/block/loop4 $bf/vendor.img
    su -c mount /dev/block/loop4 /工作目录/vendor
    else
@@ -39,7 +38,7 @@ sudo   mount /dev/loop4 /工作目录/vendor
    echo "\033[32mvendor.img已挂载到根目录/工作目录/vendor里，请自行修改\033[0m"
    read -p "如果修改完成了请按任意键继续（2-1）" xg
    read -p "如果真的修改完成了请再按一下继续（2-2）" xg
-   if [ $os != '$linux' ];then   
+   if [ $os != 'GNU/Linux' ];then   
    su -c umount -fl /工作目录/vendor
    su -c rmdir  /工作目录/vendor /工作目录
    else
@@ -64,14 +63,14 @@ sudo   rmdir  /工作目录/vendor /工作目录
    sh $0   
    exit
    fi
-   if [ $os != '$linux' ];then
+   if [ $os != 'GNU/Linux' ];then
    su -c mount -o remount -rw /
    su -c mkdir /工作目录 /工作目录/vendor
    else
 sudo   mount -o remount -rw /
  sudo  mkdir /工作目录 /工作目录/vendor
    fi   
-   if [ $os != '$linux' ];then 
+   if [ $os != 'GNU/Linux' ];then 
    su -c losetup /dev/block/loop4 $bf/vendor.img
    su -c mount /dev/block/loop4 /工作目录/vendor
    else
@@ -81,7 +80,7 @@ sudo   losetup /dev/loop4 $bf/vendor.img
    echo "\033[32mvendor.img已挂载到根目录/工作目录/vendor里，请自行修改\033[0m"
    read -p "如果修改完成了请按任意键继续（2-1）" xg
    read -p "如果真的修改完成了请再按一下继续（2-2）" xg
-   if [ $os != '$linux' ];then   
+   if [ $os != 'GNU/Linux' ];then   
    su -c umount -fl /工作目录/vendor
    su -c rmdir  /工作目录/vendor /工作目录
    else
