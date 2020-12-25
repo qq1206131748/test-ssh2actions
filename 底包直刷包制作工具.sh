@@ -2,7 +2,6 @@
 #linux可运行在ubuntu、debian。
 #工具制作By rm-rf/*
   os=$(uname -o)
-  linux=GNU/Linux
   root=$(id -u)
   af=$(pwd)
   bf=$(dirname $0) 
@@ -13,13 +12,23 @@
   cf=$(pwd)
   bf=$cf
   fi
-if [ $os != '$linux' ];then
+  if [ -b /dev/block/loop0 ];then
+  if [ $os = 'Linux' ];then
   if [ $root = '0' ];then
   echo "\033[31m本工具在Android下不用root执行，请退出root后重试。\033[0m"
   exit
   fi
   echo "\033[32m运行环境:Android\033[0m"  
-else
+  fi  
+ fi
+if [ $os = 'Android' ];then
+  if [ $root = '0' ];then
+  echo "\033[31m本工具在Android下不用root执行，请退出root后重试。\033[0m"
+  exit
+  fi
+  echo "\033[32m运行环境:Android\033[0m"  
+fi
+  if [ $os = 'GNU/Linux' ];then
   if [ $root -ne '0' ];then
   echo "\033[31m本工具运行要root，请切换到root用户后重试。\033[0m"
   exit
@@ -174,7 +183,7 @@ if [ ! -d ~/python/直刷包 ];then
    
    
   echo "\033[32m初始化已完成！\033[0m"
-   read -p "请将raw格式的boot.img、vendor.img放到工作目录/未完成/底包里,按任意键继续 " make
+   read -p "请将raw格式的boot.img、vendor.img放到工作目录/未完成/底包里,按任意键继续" make
    echo "正在制作底包"   
    if [ ! -f $bf/工作目录/未完成/底包/vendor.img ];then
    echo "\033[31m底包制作失败！请确认是否已把boot.img、vendor.img移动到工作目录/未完成/底包文件夹里。\033[0m"
@@ -194,7 +203,7 @@ if [ ! -d ~/python/直刷包 ];then
    resize2fs -f $bf/工作目录/未完成/底包/vendor.img 1024m
    fi
    echo "\033[33m请检查img文件的大小是否和输入的数值一致。\033[0m"
-   read -p "如需定制刷入文字请修改未完成/底包里的updater-script文件，按任意键继续: " db
+   read -p "如需定制刷入文字请修改未完成/底包里的updater-script文件，按任意键继续" db
    read -p "请输入底包包名（不带后缀）: " vcompression
    if [ $vcompression ];then
    echo "正在压缩底包"
@@ -290,7 +299,7 @@ if [ ! -d ~/python/直刷包 ];then
    
    
   echo "\033[32m初始化已完成！\033[0m"
-   read -p "请将raw格式的system.img放到工作目录/未完成/直刷包里,按任意键继续 " make
+   read -p "请将raw格式的system.img放到工作目录/未完成/直刷包里,按任意键继续" make
    echo "正在制作直刷包"   
    echo "\033[33mps：直刷包的大小必须小于2G，否则twrp刷不进去。\033[0m"
    if [ ! -f $bf/工作目录/未完成/直刷包/system.img ];then
@@ -311,7 +320,7 @@ if [ ! -d ~/python/直刷包 ];then
    resize2fs -f $bf/工作目录/未完成/直刷包/system.img 4096m
    fi
    echo "\033[33m请检查img文件的大小是否和输入的数值一致。\033[0m"   
-   read -p "如需定制刷入文字请修改未完成/直刷包里的updater-script文件，按任意键继续: " zsb
+   read -p "如需定制刷入文字请修改未完成/直刷包里的updater-script文件，按任意键继续" zsb
    echo "正在转换为dat"
    python ~/python/rimg2sdat.py $bf/工作目录/未完成/直刷包/system.img -o $bf/工作目录/未完成/直刷包 -v 4
    if [ ! -f $bf/工作目录/未完成/直刷包/system.new.dat ];then
@@ -454,7 +463,7 @@ if [ ! -d ~/python/直刷包 ];then
    
    
   echo "\033[32m初始化已完成！\033[0m"
-   read -p "请将raw格式的boot.img、vendor.img放到工作目录/未完成/底包里,按任意键继续 " make
+   read -p "请将raw格式的boot.img、vendor.img放到工作目录/未完成/底包里,按任意键继续" make
    echo "正在制作底包"   
    if [ ! -f $bf/工作目录/未完成/底包/vendor.img ];then
    echo "\033[31m底包制作失败！请确认是否已把boot.img、vendor.img移动到工作目录/未完成/底包文件夹里。\033[0m"
@@ -474,7 +483,7 @@ if [ ! -d ~/python/直刷包 ];then
    resize2fs -f $bf/工作目录/未完成/底包/vendor.img 1024m
    fi
    echo "\033[33m请检查img文件的大小是否和输入的数值一致。\033[0m"
-   read -p "如需定制刷入文字请修改未完成/底包里的updater-script文件，按任意键继续: " db
+   read -p "如需定制刷入文字请修改未完成/底包里的updater-script文件，按任意键继续" db
    read -p "请输入底包包名（不带后缀）: " vcompression
    if [ $vcompression ];then
    echo "正在压缩底包"
@@ -570,7 +579,7 @@ if [ ! -d ~/python/直刷包 ];then
    
    
   echo "\033[32m初始化已完成！\033[0m"
-   read -p "请将raw格式的system.img放到工作目录/未完成/直刷包里,按任意键继续 " make
+   read -p "请将raw格式的system.img放到工作目录/未完成/直刷包里,按任意键继续" make
    echo "正在制作直刷包"   
    if [ ! -f $bf/工作目录/未完成/直刷包/system.img ];then
    echo "\033[31m直刷包制作失败！请确认是否已把system.img移动到工作目录/未完成/直刷包文件夹里。\033[0m"
@@ -590,7 +599,7 @@ if [ ! -d ~/python/直刷包 ];then
    resize2fs -f $bf/工作目录/未完成/直刷包/system.img 3584m
    fi
    echo "\033[33m请检查img文件的大小是否和输入的数值一致。\033[0m"   
-   read -p "如需定制刷入文字请修改未完成/直刷包里的updater-script文件，按任意键继续: " zsb
+   read -p "如需定制刷入文字请修改未完成/直刷包里的updater-script文件，按任意键继续" zsb
    echo "正在转换为dat"
    python ~/python/rimg2sdat.py $bf/工作目录/未完成/直刷包/system.img -o $bf/工作目录/未完成/直刷包 -v 4
    if [ ! -f $bf/工作目录/未完成/直刷包/system.new.dat ];then
@@ -678,8 +687,7 @@ if [ $qz = '3' ];then
 fi
 #转换system
 if [ $xz = '2' ];then
-   echo "
-1.br转dat
+   echo "1.br转dat
 2.dat转img
 3.raw转sparse
 4.sparse转raw
@@ -696,7 +704,7 @@ if [ $xz = '2' ];then
    if [ ! -d $bf/工作目录/DAT ];then
    mkdir $bf/工作目录/DAT
    fi
-   read -p "请将system.new.dat.br文件放到工作目录/Br文件夹里，按任意键继续 " br
+   read -p "请将system.new.dat.br文件放到工作目录/Br文件夹里，按任意键继续" br
    echo "\033[32m正在转为dat…\033[0m"
    if [ ! -f $bf/工作目录/Br/system.new.dat.br ];then
    echo "\033[31m转换dat失败！，请确认system.new.dat.br文件是否已移动到工作目录/Br里\033[0m"
@@ -772,7 +780,7 @@ if [ $sys = '2' ];then
    rm -rf ~/python
    exit
    fi 
-   read -p "请将system.new.dat和system.transfer.list文件放到工作目录/DAT文件夹里，按任意键继续 " dat
+   read -p "请将system.new.dat和system.transfer.list文件放到工作目录/DAT文件夹里，按任意键继续" dat
    echo "\033[32m正在转为img…\033[0m"
    if [ ! -f $bf/工作目录/DAT/system.new.dat ];then
    echo "\033[31m转换img失败！，请确认system.new.dat是否已移动到工作目录/DAT里\033[0m"
@@ -856,7 +864,7 @@ if [ $sys = '3' ];then
    exit
    fi
    chmod 0755 ~/python/img2simg
-   read -p "请将raw格式的system.img放到工作目录/IMG文件夹里，按任意键继续 " img
+   read -p "请将raw格式的system.img放到工作目录/IMG文件夹里，按任意键继续" img
    echo "\033[32mrimg转为simg中\033[0m"
    if [ ! -f $bf/工作目录/IMG/system.img ];then
    echo "\033[31m转换simg失败！，请确认system.img是否为raw格式的和已移动到工作目录/IMG里\033[0m"
@@ -930,12 +938,13 @@ if [ $sys = '4' ];then
    rm -rf ~/python
    exit
    fi
-   if [ $os != '$linux' ];then
+   if [ $os = 'Android' ];then   
    su -c chmod 0755 ~/python/simg2img
-   else
+   fi
+   if [ $os = 'GNU/Linux' ];then   
    chmod 0755 ~/python/simg2img
    fi
-   read -p "请将sparse格式的system.img放到工作目录/IMG文件夹里,按任意键继续 " img
+   read -p "请将sparse格式的system.img放到工作目录/IMG文件夹里,按任意键继续" img
    echo "\033[32msimg转为rimg中\033[0m"
    if [ ! -f $bf/工作目录/IMG/system.img ];then
    echo "\033[31m转换rimg失败！，请确认system.img是否为sparse格式的和已移动到工作目录/IMG中\033[0m"
@@ -983,8 +992,7 @@ if [ $sys = '4' ];then
 fi
 #转换vendor
 if [ $xz = '3' ];then
-   echo "
-1.br转dat
+   echo "1.br转dat
 2.dat转img
 3.raw转sparse
 4.sparse转raw
@@ -1001,7 +1009,7 @@ if [ $ven = '1' ];then
    if [ ! -d $bf/工作目录/Br ];then
    mkdir $bf/工作目录/Br
    fi
-   read -p "请将vendor.new.dat.br文件放到工作目录/Br文件夹里，按任意键继续 " br
+   read -p "请将vendor.new.dat.br文件放到工作目录/Br文件夹里，按任意键继续" br
    echo "\033[32m正在转为dat…\033[0m"
    if [ ! -f $bf/工作目录/Br/vendor.new.dat.br ];then
    echo "\033[31m转换dat失败！，请确认vendor.new.dat.br文件是否已移动到工作目录/Br里\033[0m"
@@ -1079,7 +1087,7 @@ if [ $ven = '2' ];then
    exit
    fi 
 
-   read -p "请将vendor.new.dat和vendor.transfer.list文件放到工作目录/DAT文件夹里，按任意键继续 " dat
+   read -p "请将vendor.new.dat和vendor.transfer.list文件放到工作目录/DAT文件夹里，按任意键继续" dat
    echo "\033[32m正在转为img…\033[0m"
    if [ ! -f $bf/工作目录/DAT/vendor.new.dat ];then
    echo "\033[31m转换img失败！，请确认vendor.new.dat是否已移动到工作目录/DAT里\033[0m"
@@ -1164,7 +1172,7 @@ if [ $ven = '3' ];then
    exit
    fi
    chmod 0755 ~/python/img2simg
-   read -p "请将raw格式的vendor.img放到工作目录/IMG文件夹里，按任意键继续 " img
+   read -p "请将raw格式的vendor.img放到工作目录/IMG文件夹里，按任意键继续" img
    echo "\033[32mrimg转为simg中\033[0m"
    if [ ! -f $bf/工作目录/IMG/vendor.img ];then
    echo "\033[31m转换simg失败！，请确认vendor.img是否为raw格式的和已移动到工作目录/IMG里\033[0m"
@@ -1238,12 +1246,13 @@ if [ $ven = '4' ];then
    rm -rf ~/python
    exit
    fi
-   if [ $os != '$linux' ];then
+   if [ $os = 'Android' ];then   
    su -c chmod 0755 ~/python/simg2img
-   else
+   fi
+   if [ $os = 'GNU/Linux' ];then   
    chmod 0755 ~/python/simg2img
    fi 
-   read -p "请将sparse格式的vendor.img放到工作目录/IMG文件夹里,按任意键继续 " img
+   read -p "请将sparse格式的vendor.img放到工作目录/IMG文件夹里,按任意键继续" img
    echo "\033[32msimg转为rimg中\033[0m"
    if [ ! -f $bf/工作目录/IMG/vendor.img ];then
    echo "\033[31m转换rimg失败！，请确认vendor.img是否为sparse格式的和已移动到工作目录/IMG中\033[0m"
@@ -1292,8 +1301,7 @@ if [ $ven = '4' ];then
 fi
 #杂项
 if [ $xz = '4' ];then
-   echo "
-1.修改system(要root)
+   echo "1.修改system(要root)
 2.修改vendor(要root)
 3.调整system.img的大小
 4.调整vendor.img的大小
@@ -1309,7 +1317,7 @@ if [ $xz = '4' ];then
    if [ ! -d $bf/工作目录/未完成/直刷包 ];then
    mkdir $bf/工作目录/未完成/直刷包
    fi   
-   read -p "请将raw格式的system.img放到工作目录/未完成/直刷包里，按任意键继续:" me
+   read -p "请将raw格式的system.img放到工作目录/未完成/直刷包里，按任意键继续" me
    echo "\033[33m(linux用户忽略)请在面具》设置》挂载命名空间模式选择全局命名空间，否则挂载了看不见里面的文件(如果是第一次设置请关闭一次Termux再打开重新执行一下脚本)。\033[0m"
    read -p "按任意键继续" xg
    if [ ! -f $bf/工作目录/未完成/直刷包/system.img ];then
@@ -1320,12 +1328,13 @@ if [ $xz = '4' ];then
    sh $0   
    exit
    fi
-   if [ $os != '$linux' ];then
+   if [ $os = 'Android' ];then   
    su -c mount -o remount -rw /
    su -c mkdir /工作目录 /工作目录/system
    su -c losetup /dev/block/loop5 $bf/工作目录/未完成/直刷包/system.img
    su -c mount /dev/block/loop5 /工作目录/system
-   else
+   fi
+   if [ $os = 'GNU/Linux' ];then   
    mount -o remount -rw /
    mkdir /工作目录 /工作目录/system 
    losetup /dev/loop5 $bf/工作目录/未完成/直刷包/system.img
@@ -1334,10 +1343,11 @@ if [ $xz = '4' ];then
    echo "\033[32msystem.img已挂载到根目录/工作目录/system里，请自行修改\033[0m"
    read -p "如果修改完成了请按任意键继续（2-1）" xg
    read -p "如果真的修改完成了请再按一下继续（2-2）" xg
-   if [ $os != '$linux' ];then   
+   if [ $os = 'Android' ];then   
    su -c umount -fl /工作目录/system
    su -c rmdir  /工作目录/system /工作目录
-   else
+   fi
+   if [ $os = 'GNU/Linux' ];then   
    umount -fl /工作目录/system
    rmdir  /工作目录/system /工作目录
    fi
@@ -1364,12 +1374,13 @@ if [ $xz = '4' ];then
    sh $0   
    exit
    fi
-   if [ $os != '$linux' ];then
+   if [ $os = 'Android' ];then   
    su -c mount -o remount -rw /
    su -c mkdir /工作目录 /工作目录/system
    su -c losetup /dev/block/loop5 $bf/工作目录/未完成/直刷包/system.img
    su -c mount /dev/block/loop5 /工作目录/system
-   else
+   fi
+   if [ $os = 'GNU/Linux' ];then
    mount -o remount -rw /
    mkdir /工作目录 /工作目录/system 
    losetup /dev/loop5 $bf/工作目录/未完成/直刷包/system.img
@@ -1378,10 +1389,11 @@ if [ $xz = '4' ];then
    echo "\033[32msystem.img已挂载到根目录/工作目录/system里，请自行修改\033[0m"
    read -p "如果修改完成了请按任意键继续（2-1）" xg
    read -p "如果真的修改完成了请再按一下继续（2-2）" xg
-   if [ $os != '$linux' ];then   
+   if [ $os = 'Android' ];then   
    su -c umount -fl /工作目录/system
    su -c rmdir  /工作目录/system /工作目录
-   else
+   fi
+   if [ $os = 'GNU/Linux' ];then   
    umount -fl /工作目录/system
    rmdir  /工作目录/system /工作目录
    fi
@@ -1419,27 +1431,26 @@ if [ $xz = '4' ];then
    sh $0   
    exit
    fi
-   if [ $os != '$linux' ];then
+   if [ $os = 'Android' ];then
    su -c mount -o remount -rw /
-   su -c mkdir /工作目录 /工作目录/vendor
-   else
-   mount -o remount -rw /
-   mkdir /工作目录 /工作目录/vendor
-   fi   
-   if [ $os != '$linux' ];then 
+   su -c mkdir /工作目录 /工作目录/vendor   
    su -c losetup /dev/block/loop4 $bf/工作目录/未完成/底包/vendor.img
    su -c mount /dev/block/loop4 /工作目录/vendor
-   else
+   fi
+   if [ $os = 'GNU/Linux' ];then   
+   mount -o remount -rw /
+   mkdir /工作目录 /工作目录/vendor   
    losetup /dev/loop4 $bf/工作目录/未完成/底包/vendor.img
    mount /dev/loop4 /工作目录/vendor   
    fi
    echo "\033[32mvendor.img已挂载到根目录/工作目录/vendor里，请自行修改\033[0m"
    read -p "如果修改完成了请按任意键继续（2-1）" xg
    read -p "如果真的修改完成了请再按一下继续（2-2）" xg
-   if [ $os != '$linux' ];then   
+   if [ $os = 'Android' ];then
    su -c umount -fl /工作目录/vendor
    su -c rmdir  /工作目录/vendor /工作目录
-   else
+   fi
+   if [ $os = 'GNU/Linux' ];then   
    umount -fl /工作目录/vendor
    rmdir  /工作目录/vendor /工作目录
    fi
@@ -1466,27 +1477,26 @@ if [ $xz = '4' ];then
    sh $0   
    exit
    fi
-   if [ $os != '$linux' ];then
+   if [ $os = 'Android' ];then   
    su -c mount -o remount -rw /
-   su -c mkdir /工作目录 /工作目录/vendor
-   else
-   mount -o remount -rw /
-   mkdir /工作目录 /工作目录/vendor
-   fi   
-   if [ $os != '$linux' ];then 
+   su -c mkdir /工作目录 /工作目录/vendor   
    su -c losetup /dev/block/loop4 $bf/工作目录/未完成/底包/vendor.img
    su -c mount /dev/block/loop4 /工作目录/vendor
-   else
+   fi
+   if [ $os = 'GNU/Linux' ];then   
+   mount -o remount -rw /
+   mkdir /工作目录 /工作目录/vendor   
    losetup /dev/loop4 $bf/工作目录/未完成/底包/vendor.img
    mount /dev/loop4 /工作目录/vendor   
    fi
    echo "\033[32mvendor.img已挂载到根目录/工作目录/vendor里，请自行修改\033[0m"
    read -p "如果修改完成了请按任意键继续（2-1）" xg
    read -p "如果真的修改完成了请再按一下继续（2-2）" xg
-   if [ $os != '$linux' ];then   
+   if [ $os = 'Android' ];then   
    su -c umount -fl /工作目录/vendor
    su -c rmdir  /工作目录/vendor /工作目录
-   else
+   fi
+   if [ $os = 'GNU/Linux' ];then   
    umount -fl /工作目录/vendor
    rmdir  /工作目录/vendor /工作目录
    fi
