@@ -1,5 +1,4 @@
-#防止自动关闭
-touch /tmp/keepalive
+
 #安装必要的软件包
 sudo apt update && sudo apt -y dist-upgrade
 
