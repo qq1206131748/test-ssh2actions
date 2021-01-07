@@ -18,7 +18,7 @@ export SUBARCH=arm64
 export CROSS_COMPILE=~/work/test-ssh2actions/test-ssh2actions/aarch64-linux-android-4.9/bin/aarch64-linux-android-
 export CROSS_COMPILE_ARM32=~/work/test-ssh2actions/test-ssh2actions/arm-linux-androideabi-4.9/bin/arm-linux-androideabi-
 #编译
-make O=out  内核配置文件 
+make O=out  源码目录/arch/arm64/configs/内核配置文件 
 如:make O=out  lolz_olive_defconfig
 make O=out -j8 
 #上传编译后的文件  
