@@ -6,6 +6,7 @@ sudo apt-get install -y bc bison build-essential ccache curl flex g++-multilib g
 
 #下载源码
 git clone --depth=1 https://github.com/yi985432/kernel_olive_lolz kernel -b V10
+#里面的https://github.com/yi985432/kernel_olive_lolz代表的是源码链接，V10表示的是源码的分支，要变更源码修改这两个即可。
 #下载编译器
 git clone --depth=1 https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9 -b android-10.0.0_r32 
 
