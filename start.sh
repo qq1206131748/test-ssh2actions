@@ -9,7 +9,7 @@ password="ztAM99mhIQ"
 apt install curlftpfs
 mkdir work
 curlftpfs ftp://$name:$password@$ftp work
-cd /work
+cd work
 mkdir 1
 #ftp -n $ftp << EOF 
 #passive
