@@ -4,7 +4,5 @@ jobs:
   Ubuntu:
     runs-on: ubuntu-latest
     steps:
-    - name: forks
-      run: git clone https://github.com/yi985432/test-ssh2actions 
     - name: SSH connection to Actions
       uses: yi985432/ssh2actions@main
