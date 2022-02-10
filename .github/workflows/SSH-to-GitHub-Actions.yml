@@ -6,6 +6,3 @@ jobs:
     steps:
     - name: SSH connection to Actions
       uses: yi985432/ssh2actions@main
-    - name: Sleep
-      run: |
-         sleep 20000
